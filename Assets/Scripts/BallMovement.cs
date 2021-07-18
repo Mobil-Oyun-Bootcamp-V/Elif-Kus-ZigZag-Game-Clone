@@ -24,6 +24,9 @@ public class BallMovement : MonoBehaviour
         gameOver = false;
         direction = Vector3.forward; //oyun basinda z yonunde ileri gitmesini istiyorum.
         isFall = false;
+        
+        Time.timeScale = 1;
+      
     }
 
 
@@ -42,17 +45,25 @@ public class BallMovement : MonoBehaviour
             Time.timeScale = 0;
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Score.score++; //skoru arttir
 
-            if (direction.x == 0) //x 0 sa ileri gidiyordur
+        if (Input.touchCount > 0)
+        {
+            Touch finger = Input.GetTouch(0);
+            if (finger.phase == TouchPhase.Began)
             {
-                direction = Vector3.left; //sola gitsin
-            }
-            else
-            {
-                direction = Vector3.forward; //soldaysa ileri gidecek
+                if (isFall==false)
+                {
+                    Score.score++; //skoru arttir
+                }
+                
+                if (direction.x == 0) //x 0 sa ileri gidiyordur
+                {
+                    direction = Vector3.left; //sola gitsin
+                }
+                else
+                {
+                    direction = Vector3.forward; //soldaysa ileri gidecek
+                }
             }
         }
     }
